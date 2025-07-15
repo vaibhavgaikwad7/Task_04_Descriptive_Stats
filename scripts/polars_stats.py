@@ -17,17 +17,21 @@ for col in cat_cols:
     )
 
 print("\n===== Grouped by page_id =====")
-print(df.group_by("page_id").agg([
-    pl.count(),
-    pl.mean("estimated_spend"),
-    pl.min("estimated_spend"),
-    pl.max("estimated_spend")
-]))
+print(
+    df.group_by("page_id").agg([
+        pl.len().alias("count"),
+        pl.mean("estimated_spend").alias("estimated_spend_mean"),
+        pl.min("estimated_spend").alias("estimated_spend_min"),
+        pl.max("estimated_spend").alias("estimated_spend_max")
+    ])
+)
 
 print("\n===== Grouped by page_id and ad_id =====")
-print(df.group_by(["page_id", "ad_id"]).agg([
-    pl.count(),
-    pl.mean("estimated_spend"),
-    pl.min("estimated_spend"),
-    pl.max("estimated_spend")
-]))
+print(
+    df.group_by(["page_id", "ad_id"]).agg([
+        pl.len().alias("count"),
+        pl.mean("estimated_spend").alias("estimated_spend_mean"),
+        pl.min("estimated_spend").alias("estimated_spend_min"),
+        pl.max("estimated_spend").alias("estimated_spend_max")
+    ])
+)
